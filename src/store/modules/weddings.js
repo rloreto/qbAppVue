@@ -37,7 +37,6 @@ const actions = {
       }
     }
     else {
-      debugger
       commit(types.GET_WEDDINGS_FAILURE)
     }
   }
