@@ -4,7 +4,7 @@ export default {
     hash: '',
     icon: '',
     iframeTabs: false,
-    title: 'Quasar Main',
+    title: 'QuieroBesarte App',
     tabs: []
   },
   set (newState) {

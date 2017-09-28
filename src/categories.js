@@ -1,13 +1,30 @@
 export default [
   {
-    title: 'Style & Identity',
+    title: 'Eventos',
     icon: 'style',
-    hash: 'weddings',
+    hash: 'events',
     features: [
       {
         title: 'Calendario de bodas',
         icon: 'style',
-        hash: ''
+        hash: 'weddings'
+      }
+    ]
+  },
+  {
+    title: 'Ajustes',
+    icon: 'settings',
+    hash: 'settings',
+    features: [
+      {
+        title: 'Aplicacion',
+        icon: 'apps',
+        hash: 'app'
+      },
+      {
+        title: 'Usuario',
+        icon: 'account box',
+        hash: 'user'
       }
     ]
   }

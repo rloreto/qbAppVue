@@ -1,13 +1,9 @@
 <template>
   <div class="layout-padding row justify-center">
     <div style="width: 500px; max-width: 90vw;">
-      <p class="caption">Scroll down to see it in action.</p>
-
-      <br>
       <q-infinite-scroll :handler="refresher">
-
         <q-item v-for="(item, index) in weddings">
-          <q-side-link item v-bind:to="item.id" exact>
+          <q-side-link item v-bind:to="'weddings/'+item.id" exact>
             <q-item-main v-bind:label="item.name" label-lines="1" />
             <q-item-main>
               <q-item-tile label>

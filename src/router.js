@@ -22,11 +22,11 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Main') },
-    { path: '/weddings', component: load('weddings/weddings-list') },
-    { path: '/weddings/:id', component: load('weddings/wedding-detail') },
-    { path: '/weddings/new', component: load('weddings/wedding-detail') },
+    { path: '/', component: load('home') },
+    { path: '/events/weddings', component: load('events/weddings/weddings-list') },
+    { path: '/events/weddings/:id', component: load('events/weddings/wedding-detail') },
+    { path: '/events/weddings/new', component: load('events/weddings/wedding-new') },
     // Always leave this last one
-    { path: '*', component: load('Error404') } // Not found
+    { path: '*', component: load('error404') } // Not found
   ]
 })

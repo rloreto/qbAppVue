@@ -41,7 +41,7 @@
     >
       <div class="row flex-center bg-white" style="width: 100%; height: 100px;">
         <img src="~assets/qb_logo.svg" style="height: 75px; width 75px;"/>
-        <div style="margin-left: 15px">v0.14 beta</div>
+        <div style="margin-left: 15px">v0.1</div>
       </div>
       <q-list no-border>
         <q-side-link
@@ -51,7 +51,7 @@
           replace
         >
           <q-item-side icon="home" />
-          <q-item-main label="Showcase home" />
+          <q-item-main label="Home" />
           <q-item-side right icon="chevron_right" />
         </q-side-link>
         <q-item-separator />
