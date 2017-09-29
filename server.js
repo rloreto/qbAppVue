@@ -1,6 +1,6 @@
 // modules
 var static = require( 'node-static' ),
-    port = process.env.PORT || 3000,
+    port = process.env.PORT || 8080,
     http = require( 'http' );
 
 // config
