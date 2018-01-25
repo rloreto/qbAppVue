@@ -72,6 +72,15 @@
           </q-side-link>
           <q-item-separator />
         </template>
+        <q-item-separator />
+         <q-side-link
+          item
+          to="/logout"
+          replace
+        >
+          <q-item-side icon="exit to app"/>
+          <q-item-main label="Cerrar sesión" />
+        </q-side-link>
       </q-list>
     </q-scroll-area>
 
@@ -123,6 +132,13 @@ export default {
     return {
       categories,
       store: store.state
+    }
+  },
+  methods: {
+    logout (e, done) {
+      this.$store.dispatch('logout').then(() => {
+        this.$router.replace('/login')
+      })
     }
   }
 }

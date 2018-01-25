@@ -8,7 +8,7 @@ function load (component) {
   return () => import(`@/${component}.vue`)
 }
 
-export default new VueRouter({
+let router = new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
    * it is only to be used only for websites.
@@ -23,10 +23,29 @@ export default new VueRouter({
 
   routes: [
     { path: '/', component: load('home') },
-    { path: '/events/weddings', component: load('events/weddings/weddings-list') },
-    { path: '/events/weddings/:id', component: load('events/weddings/wedding-detail') },
-    { path: '/events/weddings/new', component: load('events/weddings/wedding-new') },
+    { path: '/login', component: load('login') },
+    { path: '/logout', component: load('logout'), meta: { requiresAuth: true } },
+    { path: '/events/weddings', component: load('events/weddings/weddings-list'), meta: { requiresAuth: true } },
+    { path: '/events/weddings/:id', component: load('events/weddings/wedding-detail'), meta: { requiresAuth: true } },
+    { path: '/events/weddings/new', component: load('events/weddings/wedding-new'), meta: { requiresAuth: true } },
     // Always leave this last one
     { path: '*', component: load('error404') } // Not found
   ]
 })
+
+router.beforeResolve((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    var authUser = Vue.cookie.get('authUser')
+    if (!authUser) {
+      next('/login')
+    }
+    else {
+      next()
+    }
+  }
+  else {
+    next()
+  }
+})
+
+export default router

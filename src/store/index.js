@@ -4,6 +4,7 @@ import * as actions from './actions'
 import * as getters from './getters'
 import weddings from './modules/weddings'
 import weddingDetail from './modules/wedding-detail'
+import authentication from './modules/authentication'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   getters,
   modules: {
     weddingDetail,
-    weddings
+    weddings,
+    authentication
   },
   strict: debug
 })
