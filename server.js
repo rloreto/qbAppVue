@@ -1,7 +1,9 @@
 // modules
 var static = require( 'node-static' ),
-    port = process.env.PORT || 8080,
+    port = process.env.PORT || 8081,
     http = require( 'http' );
+
+    console.log(port)
 
 // config
 var file = new static.Server( './dist', {

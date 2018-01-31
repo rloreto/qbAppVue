@@ -1,3 +1,3 @@
-export const todo = ({ commit }, product) => {
-  commit('todo', {})
+export const actionA = ({ commit }, obj) => {
+  commit('actionA', {})
 }

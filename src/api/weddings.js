@@ -1,22 +1,28 @@
 import Vue from 'vue'
-import axios from 'axios'
-
-// const _baseUrl = 'https://qbapi.azurewebsites.net/api/weddings'
-const _baseUrl = 'http://localhost:9000/api/weddings'
 
 export default {
-  getWedding (id, cb) {
+  getWedding (id) {
     const _token = Vue.cookie.get('token')
-    return axios.get(_baseUrl + '/' + id, {
+    return Vue.axios.get('/weddings/' + id, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + _token
       }
     })
   },
-  getWeddings (page, cb) {
+  updateWedding (id, wedding) {
     const _token = Vue.cookie.get('token')
-    return axios.get(_baseUrl, {
+    return Vue.axios.put('/weddings/' + id, wedding, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + _token
+      }
+    })
+  },
+  getWeddings (page, pageNumber, year) {
+    const query = '?limit=' + pageNumber + '&page=' + (page + 1) + '&sort=Date&ini=' + year + '-1-1&end=' + year + '-12-31'
+    const _token = Vue.cookie.get('token')
+    return Vue.axios.get('/weddings/' + query, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + _token

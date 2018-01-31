@@ -7,7 +7,9 @@ const state = {
   weddings: [],
   isLoading: false,
   errorMessage: '',
-  currentPage: 0
+  currentPage: 0,
+  selectedYear: (new Date()).getFullYear(),
+  isLastPage: false
 }
 
 // getters
@@ -15,16 +17,18 @@ const getters = {
   weddings: state => state.weddings,
   isLoading: state => state.isLoading,
   error: state => state.errorMessage,
-  currentPage: state => state.currentPage
+  currentPage: state => state.currentPage,
+  isLastPage: state => state.isLastPage,
+  selectedYear: state => state.selectedYear
 }
 
 // actions
 const actions = {
-  async getWeddings ({ commit, state }, data) {
+  getWeddings: async ({ commit, state }, data) => {
     commit(types.GET_WEDDINGS_REQUEST)
     var response
     try {
-      response = await api.getWeddings(data.page)
+      response = await api.getWeddings(data.page, 5, data.year)
     }
     catch (e) {
       commit(types.GET_WEDDINGS_FAILURE, { errorMessage: e })
@@ -33,15 +37,19 @@ const actions = {
 
     if (response.status === 200) {
       if (response.data && response.data.length > 0) {
-        commit(types.GET_WEDDINGS_SUCCESS, { weddings: response.data })
+        let isLastPage = (response.data.length !== 5)
+        commit(types.GET_WEDDINGS_SUCCESS, { weddings: response.data, isLastPage })
       }
     }
     else {
       commit(types.GET_WEDDINGS_FAILURE)
     }
+  },
+  setYear: ({ commit, state }, data) => {
+    commit(types.SET_YEAR_REQUEST)
+    commit(types.SET_YEAR_SUCCESS, data.year)
   }
 }
-
 // mutations
 const mutations = {
   [types.GET_WEDDINGS_REQUEST] (state) {
@@ -51,7 +59,7 @@ const mutations = {
     state.isLoading = false
     state.errorMessage = errorMessage
   },
-  [types.GET_WEDDINGS_SUCCESS] (state, { weddings }) {
+  [types.GET_WEDDINGS_SUCCESS] (state, { weddings, isLastPage }) {
     if (weddings && weddings.length === 0) {
       state.isLoading = false
       return
@@ -62,6 +70,20 @@ const mutations = {
     }
     state.weddings = state.weddings.concat(items)
     state.currentPage++
+    state.isLoading = false
+    state.isLastPage = isLastPage
+  },
+  [types.SET_YEAR_REQUEST] (state) {
+    state.isLoading = true
+  },
+  [types.SET_YEAR_SUCCESS] (state, year) {
+    state.isLoading = false
+    state.weddings = []
+    state.currentPage = 0
+    state.isLastPage = false
+    state.selectedYear = year
+  },
+  [types.SET_YEAR_FAILURE] (state, { errorMessage }) {
     state.isLoading = false
   }
 }

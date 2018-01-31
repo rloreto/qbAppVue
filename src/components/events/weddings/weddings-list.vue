@@ -1,18 +1,31 @@
 <template>
   <div class="layout-padding row justify-center">
     <div style="width: 500px; max-width: 90vw;">
-      <q-infinite-scroll :handler="refresher">
-        <q-item v-for="(item, index) in weddings">
+      <q-fixed-position corner="top-right" :offset="[16, 16]">
+        <q-btn push color="orange" >
+          Año
+          <q-popover
+            ref="popover2"
+          >
+            <q-list link style="min-width: 100px">
+              <q-item
+                v-for="n in years"
+                :key="n"
+                @click="showToast(n), $refs.popover2.close()"
+              >
+                <q-item-main v-bind:label="n +''" />
+              </q-item>
+            </q-list>
+          </q-popover>
+        </q-btn>
+      </q-fixed-position>
+      <q-infinite-scroll :handler="refresher" ref="infiniteScroll">
+        <q-item v-for="item in weddings" :key="item.id">
           <q-side-link item v-bind:to="'weddings/'+item.id" exact>
-            <q-item-main v-bind:label="item.name" label-lines="1" />
-            <q-item-main>
-              <q-item-tile label>
-                Detail
-              </q-item-tile>
-            </q-item-main>
+            <q-item-main :label="item.name" :sublabel="formatDate(item.date)" label-lines="2" />
           </q-side-link>
         </q-item>
-        <div class="row justify-center" style="margin-bottom: 50px;">
+        <div v-show="!isLastPage" class="row justify-center" style="margin-bottom: 50px;">
           <q-spinner-dots slot="message" :size="40" />
         </div>
       </q-infinite-scroll>
@@ -51,7 +64,11 @@ import {
   QFixedPosition,
   QFab,
   QFabAction,
-  QTooltip
+  QTooltip,
+  Toast,
+  QBtn,
+  QPopover,
+  date
 } from 'quasar'
 import { mapGetters } from 'vuex'
 export default {
@@ -70,24 +87,55 @@ export default {
     QFixedPosition,
     QFab,
     QFabAction,
-    QTooltip
+    QTooltip,
+    Toast,
+    QBtn,
+    QPopover,
+    date
+  },
+  data () {
+    return {
+      years: [2019, 2018, 2017, 2016, 2015, 2014, 2013]
+    }
   },
   methods: {
     refresher (index, done) {
-      if (!this.isLoading && !this.error) {
-        this.$store.dispatch('getWeddings', {page: this.currentPage})
+      if (!this.isLastPage) {
+        if (!this.isLoading && !this.error) {
+          this.$store.dispatch('getWeddings', {
+            page: this.currentPage,
+            year: this.selectedYear || (new Date()).getFullYear()
+          })
+        }
+      }
+      else {
+        this.$refs.infiniteScroll.stop()
       }
       done()
+    },
+    showToast (year) {
+      Toast.create('Filtro activo. Año: ' + year)
+      this.$store.dispatch('setYear', { year }).then(() => {
+        this.$refs.infiniteScroll.reset()
+        this.$refs.infiniteScroll.resume()
+        this.$refs.infiniteScroll.loadMore()
+      })
+    },
+    formatDate: (dateToFormat) => {
+      let timeStamp = new Date(dateToFormat)
+      return date.formatDate(timeStamp, 'dddd, DD  MMMM  YYYY', {
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      })
     }
   },
   computed: mapGetters({
     weddings: 'weddings',
     isLoading: 'isLoading',
     currentPage: 'currentPage',
-    error: 'error'
-  }),
-  created () {
-  }
-
+    error: 'error',
+    selectedYear: 'selectedYear',
+    isLastPage: 'isLastPage'
+  })
 }
 </script>

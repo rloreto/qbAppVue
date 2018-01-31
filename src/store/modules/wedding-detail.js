@@ -3,7 +3,7 @@ import * as types from '../mutation-types'
 
 // initial state
 const state = {
-  currentWedding: {},
+  currentWedding: null,
   isLoading: false
 }
 
@@ -33,6 +33,36 @@ const actions = {
     else {
       commit(types.GET_WEDDINGS_FAILURE)
     }
+  },
+  async updateWedding ({ commit, state }, {id, data}) {
+    if (state.currentWedding[data.propertyName] === data.value) {
+      return
+    }
+    commit(types.UPDATE_WEDDING_REQUEST, data)
+    var response
+    try {
+      if (data.propertyName) {
+        const obj = {}
+        obj[data.propertyName] = data.value
+        response = await api.updateWedding(id, obj)
+      }
+      else {
+        commit(types.GET_WEDDING_FAILURE, { errorMessage: 'Propertyn name is empty' })
+      }
+    }
+    catch (e) {
+      commit(types.GET_WEDDING_FAILURE, { errorMessage: e })
+      return
+    }
+
+    if (response.status === 200) {
+      if (response.data) {
+        commit(types.UPDATE_WEDDING_SUCCESS, data)
+      }
+    }
+    else {
+      commit(types.UPDATE_WEDDING_FAILURE)
+    }
   }
 }
 
@@ -51,6 +81,21 @@ const mutations = {
       return
     }
     state.currentWedding = wedding
+    state.isLoading = false
+  },
+  [types.UPDATE_WEDDING_REQUEST] (state, data) {
+    if (data.propertyName) {
+      state.currentWedding[data.propertyName] = data.value
+    }
+    state.isLoading = true
+  },
+  [types.UPDATE_WEDDING_SUCCESS] (state, data) {
+    if (data.propertyName) {
+      state.currentWedding[data.propertyName] = data.value
+    }
+    state.isLoading = false
+  },
+  [types.UPDATE_WEDDING_FAILURE] (state, { errorMessage }) {
     state.isLoading = false
   }
 }

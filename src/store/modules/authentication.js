@@ -65,6 +65,12 @@ const mutations = {
   },
   [types.LOGIN_SUCCESS] (state) {
     state.isAuthenticated = true
+  },
+  [types.LOGOUT_REQUEST] (state) {
+
+  },
+  [types.LOGOUT_SUCCESS] (state) {
+    state.isAuthenticated = false
   }
 }
 

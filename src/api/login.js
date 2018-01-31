@@ -1,13 +1,12 @@
-import axios from 'axios'
+import Vue from 'vue'
 
-// const _baseUrl = 'https://qbapi.azurewebsites.net/api/weddings'
-const _baseUrl = 'http://localhost:9000/api/'
 const publicAccessToken = '12F2G71AD432F69CB1281F7117B0'
 
 export default {
   authentication (email, password) {
-    return axios.post(
-      _baseUrl + 'auth',
+    console.log(Vue.http)
+    return Vue.axios.post(
+      '/auth',
       { access_token: publicAccessToken },
       {
         headers: {
