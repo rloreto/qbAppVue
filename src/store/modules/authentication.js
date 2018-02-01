@@ -33,8 +33,8 @@ const actions = {
 
     if (response.status === 200 || response.status === 201) {
       if (response.data && response.data.token && response.data.token.length > 0) {
-        Vue.cookie.set('token', response.data.token, '1d')
-        Vue.cookie.set('authUser', JSON.stringify(response.data.user), '1d')
+        Vue.cookie.set('token', response.data.token, '1Y')
+        Vue.cookie.set('authUser', JSON.stringify(response.data.user), '1Y')
         commit(types.LOGIN_SUCCESS)
       }
     }

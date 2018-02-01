@@ -1,19 +1,16 @@
 <template>
   <div class="layout-padding row justify-center">
     <div style="width: 500px; max-width: 90vw;">
-      <q-fixed-position corner="top-right" :offset="[16, 16]">
+      <q-fixed-position corner="top-right" :offset="[16, 16]" style="z-index: 1000">
         <q-btn push color="orange" >
-          Año
-          <q-popover
-            ref="popover2"
-          >
+          {{ selectedYear }}
+          <q-popover ref="popover2">
             <q-list link style="min-width: 100px">
               <q-item
                 v-for="n in years"
                 :key="n"
-                @click="showToast(n), $refs.popover2.close()"
-              >
-                <q-item-main v-bind:label="n +''" />
+                @click="showToast(n), $refs.popover2.close()">
+                <q-item-main :label="n +''" />
               </q-item>
             </q-list>
           </q-popover>

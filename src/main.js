@@ -9,23 +9,20 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 // Uncomment the following lines if you need IE11/Edge support
 // require(`quasar/dist/quasar.ie`)
 // require(`quasar/dist/quasar.ie.${__THEME}.css`)
+
 import Vue from 'vue'
-import moment from 'moment'
+import VueCookie from 'vue-cookie'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Quasar from 'quasar'
-import VueCookie from 'vue-cookie'
 import router from './router'
 import store from './store/index'
-
-moment.locale('es')
 
 Vue.config.productionTip = false
 const axiosInstance = axios.create({
   // baseURL: 'https://qbapi.azurewebsites.net/api'
   baseURL: 'http://localhost:9000/api'
 })
-
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(VueCookie)
 Vue.use(VueAxios, axiosInstance)
@@ -44,6 +41,6 @@ Quasar.start(() => {
     el: '#q-app',
     store,
     router,
-    render: h => h(require('./App'))
+    render: h => h(require('./App').default)
   })
 })
