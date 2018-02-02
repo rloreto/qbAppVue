@@ -1,10 +1,10 @@
 {
-  "name": "quasar-app",
-  "productName": "Quasar App",
+  "name": "qbapp",
+  "productName": "qbapp",
   "version": "0.0.1",
   "private": true,
-  "description": "A Quasar App",
-  "author": "Your Name <your@email.com>",
+  "description": "qbapp",
+  "author": "Roberto Loreto <rloreto@gmail.com>",
   "scripts": {
     "start": "node build/script.build.js && node server",
     "clean": "node build/script.clean.js",
