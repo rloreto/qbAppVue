@@ -8,7 +8,7 @@
         <q-icon name="error_outline" color="grey-5" />
         <p class="caption text-center">Home</p>
         <p class="text-center group">
- 
+
         </p>
       </div>
     </div>
@@ -19,7 +19,15 @@
 /*
  * Root component
  */
-export default {}
+import {
+  QIcon
+} from 'quasar'
+
+export default {
+  components: {
+    QIcon
+  }
+}
 </script>
 
 

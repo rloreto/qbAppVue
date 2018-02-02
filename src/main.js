@@ -20,8 +20,7 @@ import store from './store/index'
 
 Vue.config.productionTip = false
 const axiosInstance = axios.create({
-  // baseURL: 'https://qbapi.azurewebsites.net/api'
-  baseURL: 'http://localhost:9000/api'
+  baseURL: process.env.API_URL
 })
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(VueCookie)

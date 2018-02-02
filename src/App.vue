@@ -24,7 +24,7 @@
     >
       <q-route-tab
         v-for="tab in store.tabs"
-        :key="tab"
+        :key="tab.hash"
         slot="title"
         :icon="tab.icon"
         :to="`/${store.hash}/${tab.hash}`"
@@ -56,13 +56,13 @@
         </q-side-link>
         <q-item-separator />
         <template v-for="category in categories">
-          <q-list-header>
+          <q-list-header :key="category.hash">
             {{ category.title }}
           </q-list-header>
           <q-side-link
             item
             v-for="feature in category.features"
-            :key="feature"
+            :key="feature.hash"
             :to="`/${category.hash}/${feature.hash}`"
             replace
           >
@@ -70,7 +70,7 @@
             <q-item-main :label="feature.title" />
             <q-item-side right icon="chevron_right" />
           </q-side-link>
-          <q-item-separator />
+          <q-item-separator :key="'separator-'+category.hash"/>
         </template>
         <q-item-separator />
          <q-side-link
