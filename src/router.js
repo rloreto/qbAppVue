@@ -7,6 +7,7 @@ function load (component) {
   // '@' is aliased to src/components
   return () => import(`@/${component}.vue`)
 }
+const defaultUrl = '/events/weddings'
 
 let router = new VueRouter({
   /*
@@ -34,17 +35,27 @@ let router = new VueRouter({
 })
 
 router.beforeResolve((to, from, next) => {
+  var authUser = Vue.cookie.get('authUser')
   if (to.meta.requiresAuth) {
-    var authUser = Vue.cookie.get('authUser')
     if (!authUser) {
       next('/login')
     }
     else {
-      next()
+      if (to.path === '/' && authUser) {
+        next(defaultUrl)
+      }
+      else {
+        next()
+      }
     }
   }
   else {
-    next()
+    if (to.path === '/login' && authUser) {
+      next(defaultUrl)
+    }
+    else {
+      next()
+    }
   }
 })
 
