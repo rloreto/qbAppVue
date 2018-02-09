@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import api from '../../api/weddings'
 import * as types from '../mutation-types'
 
@@ -36,10 +37,8 @@ const actions = {
     }
 
     if (response.status === 200) {
-      if (response.data && response.data.length > 0) {
-        let isLastPage = (response.data.length !== 5)
-        commit(types.GET_WEDDINGS_SUCCESS, { weddings: response.data, isLastPage })
-      }
+      let isLastPage = (response.data.length !== 5)
+      commit(types.GET_WEDDINGS_SUCCESS, { weddings: response.data, isLastPage })
     }
     else {
       commit(types.GET_WEDDINGS_FAILURE)
@@ -85,6 +84,15 @@ const mutations = {
   },
   [types.SET_YEAR_FAILURE] (state, { errorMessage }) {
     state.isLoading = false
+  },
+  [types.UPDATE_ITEM_ON_WEDDINGS] (state, wedding) {
+    let targetIndex = 0
+    for (let i = 0; i < state.weddings.length; i++) {
+      if (state.weddings[i].id === wedding.id) {
+        targetIndex = i
+      }
+    }
+    Vue.set(state.weddings, targetIndex, wedding)
   }
 }
 

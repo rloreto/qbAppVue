@@ -19,7 +19,7 @@
       <q-infinite-scroll :handler="refresher" ref="infiniteScroll">
         <q-item v-for="item in weddings" :key="item.id">
           <q-side-link item v-bind:to="'weddings/'+item.id" exact>
-            <q-item-main :label="item.name" :sublabel="formatDate(item.date) + ' - ' +item.place" label-lines="2" />
+            <q-item-main :label="item.name" :sublabel="formatDate(item.date)  + (item.place? ' - ' + item.place: '')" label-lines="2" />
           </q-side-link>
         </q-item>
         <div v-show="!isLastPage" class="row justify-center" style="margin-bottom: 50px;">
@@ -96,6 +96,9 @@ export default {
     }
   },
   methods: {
+    created: () => {
+      debugger
+    },
     refresher (index, done) {
       if (!this.isLastPage) {
         if (!this.isLoading && !this.error) {
@@ -122,7 +125,7 @@ export default {
       let timeStamp = new Date(dateToFormat)
       return date.formatDate(timeStamp, 'dddd, DD  MMM  YYYY', {
         dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto','Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       })
     }
   },

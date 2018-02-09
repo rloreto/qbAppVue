@@ -26,9 +26,7 @@ const actions = {
     }
 
     if (response.status === 200) {
-      if (response.data) {
-        commit(types.GET_WEDDING_SUCCESS, { wedding: response.data })
-      }
+      commit(types.GET_WEDDING_SUCCESS, { wedding: response.data })
     }
     else {
       commit(types.GET_WEDDINGS_FAILURE)
@@ -36,6 +34,7 @@ const actions = {
   },
   async updateWedding ({ commit, state }, {id, data}) {
     if (state.currentWedding[data.propertyName] === data.value) {
+      commit(types.UPDATE_WEDDING_SUCCESS, data)
       return
     }
     commit(types.UPDATE_WEDDING_REQUEST, data)
@@ -58,6 +57,7 @@ const actions = {
     if (response.status === 200) {
       if (response.data) {
         commit(types.UPDATE_WEDDING_SUCCESS, data)
+        commit(types.UPDATE_ITEM_ON_WEDDINGS, response.data)
       }
     }
     else {

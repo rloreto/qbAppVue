@@ -116,7 +116,7 @@ export default {
     return {
       counter: 0,
       daysNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
     }
   },
   methods: {
@@ -133,7 +133,6 @@ export default {
         this.$store.dispatch('updateWedding', {id: this.$route.params.id, data: {propertyName, value}})
       }
     }, 1000)
-
   },
   computed: mapGetters({
     currentWedding: 'currentWedding',
