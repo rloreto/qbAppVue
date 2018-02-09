@@ -19,7 +19,7 @@
       <q-infinite-scroll :handler="refresher" ref="infiniteScroll">
         <q-item v-for="item in weddings" :key="item.id">
           <q-side-link item v-bind:to="'weddings/'+item.id" exact>
-            <q-item-main :label="item.name" :sublabel="formatDate(item.date)" label-lines="2" />
+            <q-item-main :label="item.name" :sublabel="formatDate(item.date) + ' - ' +item.place" label-lines="2" />
           </q-side-link>
         </q-item>
         <div v-show="!isLastPage" class="row justify-center" style="margin-bottom: 50px;">

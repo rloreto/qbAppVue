@@ -6,6 +6,7 @@
           <div>
               <q-input :value="currentWedding.name" @input="debounceUpdateProperty('name', $event)" @blur="updateProperty('name', $event)" float-label="Nombre" />
               <q-datetime :value="currentWedding.date" @change="updateProperty('date', $event)" format="DD-MM-YYYY"  :month-names="monthNames" :day-names='daysNames' type="date" />
+              <q-input :value="currentWedding.place" @input="debounceUpdateProperty('place', $event)" @blur="updateProperty('place',$event)" float-label="Lugar" />
               <q-input :value="currentWedding.email" @input="debounceUpdateProperty('email', $event)" @blur="updateProperty('email',$event)" float-label="Email" />
               <q-input :value="currentWedding.deposit" @input="debounceUpdateProperty('deposit',$event)" @blur="updateProperty('deposit',$event)" type="number" float-label="Depósito" prefix="€" suffix="EUR" />
               <q-input :value="currentWedding.total" @input="debounceUpdateProperty('total', $event)" @blur="updateProperty('total',$event)" type="number" float-label="Cantidad pactada" prefix="€" suffix="EUR" />
