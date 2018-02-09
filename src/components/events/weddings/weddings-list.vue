@@ -120,9 +120,9 @@ export default {
     },
     formatDate: (dateToFormat) => {
       let timeStamp = new Date(dateToFormat)
-      return date.formatDate(timeStamp, 'dddd, DD  MMMM  YYYY', {
+      return date.formatDate(timeStamp, 'dddd, DD  MMM  YYYY', {
         dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto','Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       })
     }
   },
