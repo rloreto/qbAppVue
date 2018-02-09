@@ -125,12 +125,12 @@ export default {
         value = value.target.value
       }
       if (!this.isLoading) {
-        this.$store.dispatch('updateWedding', {id: this.$route.params.id, data: {propertyName, value}})
+        this.$store.dispatch('updateWedding', {id: this.currentWedding.id, data: {propertyName, value}})
       }
     },
     debounceUpdateProperty: _.debounce(function (propertyName, value) {
       if (!this.isLoading) {
-        this.$store.dispatch('updateWedding', {id: this.$route.params.id, data: {propertyName, value}})
+        this.$store.dispatch('updateWedding', {id: this.currentWedding.id, data: {propertyName, value}})
       }
     }, 1000)
   },
@@ -138,11 +138,11 @@ export default {
     currentWedding: 'currentWedding',
     isLoading: 'isLoading'
   }),
-  watch: {
+  /* watch: {
     currentWedding: function (oldWedding, newWedding) {
       console.log(newWedding)
     }
-  },
+  }, */
   beforeCreate () {
     if (this.$route.params.id) {
       this.$store.dispatch('getWedding', this.$route.params.id)
