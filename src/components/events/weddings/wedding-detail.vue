@@ -12,7 +12,7 @@
               <q-input :value="currentWedding.total" @input="debounceUpdateProperty('total', $event)" @blur="updateProperty('total',$event)" type="number" float-label="Cantidad pactada" prefix="€" suffix="EUR" />
            </div>
         </q-collapsible>
-        <q-collapsible group="bride" icon="face" label="Novia">
+        <q-collapsible group="bride" icon="fa-female" label="Novia">
           <q-checkbox :value="currentWedding.brideHomeFilm" @input="updateProperty('brideHomeFilm', $event)" label="¿Se filma a la novia?" />
           <div v-show="currentWedding.brideHomeFilm">
             <q-input :value="currentWedding.brideName" @input="debounceUpdateProperty('brideName', $event)" @blur="updateProperty('brideName',$event)" float-label="Nombre" />
@@ -22,7 +22,7 @@
             <q-input :value="currentWedding.brideDressedUpNotes" @input="debounceUpdateProperty('brideDressedUpNotes', $event)" @blur="updateProperty('brideDressedUpNotes',$event)" float-label="Notas" :min-rows="5"  type="textarea" />
           </div>
         </q-collapsible>
-        <q-collapsible group="groom" icon="perm_identity" label="Novio">
+        <q-collapsible group="groom" icon="fa-male" label="Novio">
         <div>
           <q-checkbox :value="currentWedding.groomHomeFilm" @input="updateProperty('groomHomeFilm', $event)" label="¿Se filma al novio?" />
           <div v-show="currentWedding.groomHomeFilm">

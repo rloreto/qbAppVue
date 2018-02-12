@@ -20,7 +20,9 @@
         <q-item v-for="item in weddings" :key="item.id">
           <q-side-link item v-bind:to="'weddings/'+item.id" exact>
             <q-item-main :label="item.name" :sublabel="formatDate(item.date)  + (item.place? ' - ' + item.place: '')" label-lines="2" />
-          </q-side-link>
+            <q-icon v-show="item.brideHomeFilm" name="fa-female" size="1rem" />
+            <q-icon v-show="item.groomHomeFilm" name="fa-male" size="1rem" />
+          </q-side-link> 
         </q-item>
         <div v-show="!isLastPage" class="row justify-center" style="margin-bottom: 50px;">
           <q-spinner-dots slot="message" :size="40" />
