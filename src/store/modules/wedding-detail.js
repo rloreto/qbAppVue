@@ -165,6 +165,7 @@ const mutations = {
       state.currentWedding = {
         brideHomeFilm: false,
         groomHomeFilm: false,
+        date: Date.now(),
         confirm: true
       }
     }
