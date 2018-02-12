@@ -28,7 +28,7 @@
       </q-infinite-scroll>
       <router-link :to="{ path: 'wedding' }">
 	      <q-fixed-position corner="bottom-right" :offset="[18, 18]">
-          <q-btn round color="primary"  icon="alarm" />
+          <q-btn round color="primary"  icon="add" />
         </q-fixed-position>
 		  </router-link>
     </div>
