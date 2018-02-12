@@ -189,7 +189,7 @@ export default {
     }
   },
   beforeRouteLeave (to, from, next) {
-    if (this.mode === 'new'){
+    if (this.mode === 'new') {
       next(false)
       Dialog.create({
         title: 'Datos sin guardar',

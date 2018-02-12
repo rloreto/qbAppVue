@@ -98,7 +98,6 @@ const mutations = {
     }
   },
   [types.DELETE_ITEM_ON_WEDDINGS] (state, wedding) {
-    debugger
     const targetIndex = state.weddings.findIndex((item) => item.id === wedding.id)
     if (targetIndex !== -1) {
       Vue.delete(state.weddings, targetIndex)

@@ -87,7 +87,6 @@ export default {
   },
   methods: {
     created: () => {
-      debugger
     },
     refresher (index, done) {
       if (!this.isLastPage) {
@@ -119,7 +118,6 @@ export default {
       })
     },
     newWedding: () => {
-      debugger
       this.$router.push('/events/wedding')
     }
   },
