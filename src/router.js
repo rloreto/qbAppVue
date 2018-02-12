@@ -28,7 +28,7 @@ let router = new VueRouter({
     { path: '/logout', component: load('logout'), meta: { requiresAuth: true } },
     { path: '/events/weddings', component: load('events/weddings/weddings-list'), meta: { requiresAuth: true } },
     { path: '/events/weddings/:id', component: load('events/weddings/wedding-detail'), meta: { requiresAuth: true } },
-    { path: '/events/weddings/new', component: load('events/weddings/wedding-new'), meta: { requiresAuth: true } },
+    { path: '/events/wedding', component: load('events/weddings/wedding-detail'), meta: { requiresAuth: true } },
     // Always leave this last one
     { path: '*', component: load('error404') } // Not found
   ]

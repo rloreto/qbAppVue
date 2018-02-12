@@ -64,6 +64,10 @@
           <q-input :value="currentWedding.additionalInfo" @input="debounceUpdateProperty('additionalInfo', $event)" @blur="updateProperty('additionalInfo',$event)" float-label="Notas" :min-rows="5"  type="textarea" />
         </q-item>
       </q-list>
+      <q-fixed-position corner="bottom-right" :offset="[18, 18]">
+        <q-btn color="primary" icon="add circle outline" v-show="mode=='new'" @click="newWeeding">Crear boda</q-btn>
+        <q-btn color="negative" icon="delete" v-show="mode=='update'" @click="deleteWeeding">Eliminar</q-btn>
+      </q-fixed-position>
     </div>
   </div>
 </template>
@@ -83,14 +87,17 @@ import {
   QItemSide,
   QItemTile,
   QCollapsible,
+  QFixedPosition,
   QBtn,
   QChip,
   QInput,
   QDatetime,
   QToggle,
-  QCheckbox
+  QCheckbox,
+  Dialog
 } from 'quasar'
 import { mapGetters } from 'vuex'
+import * as types from '../../../store/mutation-types'
 export default {
   components: {
     QCard,
@@ -105,12 +112,14 @@ export default {
     QItemSide,
     QItemTile,
     QCollapsible,
+    QFixedPosition,
     QBtn,
     QChip,
     QInput,
     QDatetime,
     QToggle,
-    QCheckbox
+    QCheckbox,
+    Dialog
   },
   data () {
     return {
@@ -132,11 +141,38 @@ export default {
       if (!this.isLoading) {
         this.$store.dispatch('updateWedding', {id: this.currentWedding.id, data: {propertyName, value}})
       }
-    }, 1000)
+    }, 1000),
+    newWeeding () {
+      this.$store.dispatch('createWedding', this.currentWedding).then(() => {
+        this.$router.replace('weddings/' + this.$store.getters.currentWedding.id)
+      })
+    },
+    deleteWeeding () {
+      Dialog.create({
+        title: 'Eliminar boda',
+        message: '¿Esta seguro que desea eliminar esta boda?',
+        buttons: [
+          {
+            label: 'No',
+            handler () {
+            }
+          },
+          {
+            label: 'Si',
+            handler: () => {
+              this.$store.dispatch('deleteWedding', this.currentWedding).then(() => {
+                this.$router.replace('/events/weddings')
+              })
+            }
+          }
+        ]
+      })
+    }
   },
   computed: mapGetters({
     currentWedding: 'currentWedding',
-    isLoading: 'isLoading'
+    isLoading: 'isLoading',
+    mode: 'mode'
   }),
   /* watch: {
     currentWedding: function (oldWedding, newWedding) {
@@ -145,7 +181,39 @@ export default {
   }, */
   beforeCreate () {
     if (this.$route.params.id) {
+      this.$store.commit(types.SET_WEDDING_MODE, 'update')
       this.$store.dispatch('getWedding', this.$route.params.id)
+    }
+    else {
+      this.$store.commit(types.SET_WEDDING_MODE, 'new')
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    if (this.mode === 'new'){
+      next(false)
+      Dialog.create({
+        title: 'Datos sin guardar',
+        message: '¿Quieres guardar los datos antes de continuar?',
+        buttons: [
+          {
+            label: 'No',
+            handler: () => {
+              next()
+            }
+          },
+          {
+            label: 'Si',
+            handler: () => {
+              this.$store.dispatch('createWedding', this.currentWedding).then(() => {
+                next()
+              })
+            }
+          }
+        ]
+      })
+    }
+    else {
+      next()
     }
   }
 }

@@ -10,9 +10,27 @@ export default {
       }
     })
   },
+  createWedding (wedding) {
+    const _token = Vue.cookie.get('token')
+    return Vue.axios.post('/weddings', wedding, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + _token
+      }
+    })
+  },
   updateWedding (id, wedding) {
     const _token = Vue.cookie.get('token')
     return Vue.axios.put('/weddings/' + id, wedding, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + _token
+      }
+    })
+  },
+  deleteWedding (id) {
+    const _token = Vue.cookie.get('token')
+    return Vue.axios.delete('/weddings/' + id, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + _token

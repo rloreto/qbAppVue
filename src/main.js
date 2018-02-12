@@ -17,6 +17,7 @@ import VueAxios from 'vue-axios'
 import Quasar from 'quasar'
 import router from './router'
 import store from './store/index'
+import Vuelidate from 'vuelidate'
 
 Vue.config.productionTip = false
 const axiosInstance = axios.create({
@@ -25,6 +26,7 @@ const axiosInstance = axios.create({
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(VueCookie)
 Vue.use(VueAxios, axiosInstance)
+Vue.use(Vuelidate)
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')

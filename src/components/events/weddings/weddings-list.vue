@@ -26,21 +26,11 @@
           <q-spinner-dots slot="message" :size="40" />
         </div>
       </q-infinite-scroll>
-      <q-fixed-position corner="bottom-right" :offset="[16, 16]">
-        <q-fab
-          color="primary"
-          active-icon="alarm"
-          direction="up"
-          class="animate-pop"
-        >
-          <q-fab-action color="purple" @click="toast('mail')" icon="mail">
-            <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Mail</q-tooltip>
-          </q-fab-action>
-          <q-fab-action color="secondary" @click="toast('alarm')" icon="alarm">
-            <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Alarm</q-tooltip>
-          </q-fab-action>
-        </q-fab>
-      </q-fixed-position>
+      <router-link :to="{ path: 'wedding' }">
+	      <q-fixed-position corner="bottom-right" :offset="[18, 18]">
+          <q-btn round color="primary"  icon="alarm" />
+        </q-fixed-position>
+		  </router-link>
     </div>
   </div>
 </template>
@@ -127,6 +117,10 @@ export default {
         dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
         monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
       })
+    },
+    newWedding: () => {
+      debugger
+      this.$router.push('/events/wedding')
     }
   },
   computed: mapGetters({

@@ -85,14 +85,24 @@ const mutations = {
   [types.SET_YEAR_FAILURE] (state, { errorMessage }) {
     state.isLoading = false
   },
-  [types.UPDATE_ITEM_ON_WEDDINGS] (state, wedding) {
-    let targetIndex = 0
-    for (let i = 0; i < state.weddings.length; i++) {
-      if (state.weddings[i].id === wedding.id) {
-        targetIndex = i
-      }
+  [types.ADD_ITEM_ON_WEDDINGS] (state, wedding) {
+    const targetIndex = state.weddings.findIndex((item) => item.date >= wedding.date)
+    if (targetIndex !== -1) {
+      state.weddings.splice(targetIndex, 0, wedding)
     }
-    Vue.set(state.weddings, targetIndex, wedding)
+  },
+  [types.UPDATE_ITEM_ON_WEDDINGS] (state, wedding) {
+    const targetIndex = state.weddings.findIndex((item) => item.id === wedding.id)
+    if (targetIndex !== -1) {
+      Vue.set(state.weddings, targetIndex, wedding)
+    }
+  },
+  [types.DELETE_ITEM_ON_WEDDINGS] (state, wedding) {
+    debugger
+    const targetIndex = state.weddings.findIndex((item) => item.id === wedding.id)
+    if (targetIndex !== -1) {
+      Vue.delete(state.weddings, targetIndex)
+    }
   }
 }
 
